@@ -6,4 +6,4 @@
 
 from passgen import passwordgen
 
-password = passwordgen()
+password = passwordgen(True,False)
