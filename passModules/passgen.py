@@ -6,7 +6,6 @@ from math import *
 import random
 import os
 import time
-from progress.bar import Bar
 
 def passwordgen(displayPass,toFile):
     """

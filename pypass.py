@@ -47,10 +47,13 @@ splash = [".\nAlso check out PythonPlanner!",
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠛⠳⠶⠶⠶⠶⠶⠖⠛⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀""",
     """.\nUNINSTALLING VALORANT
 ▇▇▇▇▇▇▇▇▇▇▇▇▇▇▢
-　　╭━╮╭━╮╭╮　╱ 　　
+　　╭━╮╭━╮╭╮ ╱ 　　
 　　╰━┫╰━┫╰╯╱╭╮ 　　
 　　╰━╯╰━╯ ╱ ╰╯ 　　　　　
-　　　     COMPLETE"""]
+　　　     COMPLETE""",
+    ".\nBe careful you might PyPass away!",
+    ", update SF-14.\nIf you know, you know.\nIf you don't know, you don't know.",
+    ".\nif: else:\nif: else:\nif: else:\nif: else:\nif: else:\nif: else:\nif: else:\nif: else:\nif: else:\nif: else:\nif: else:\nif: else:\nif: else:\nif: else:\nif: else:\nif: else:\nif: else:\nif: else:\nif: else:\nif: else:\nif: else:\nif: else:\nif: else:\nif: else:\nif: else:\nif: else:\nif: else:\nif: else:\nif: else:\nif: else:\nif: else:"]
 
 os.system(opsys)
 
