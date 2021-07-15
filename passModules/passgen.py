@@ -131,4 +131,8 @@ def passwordgen(displayPass,toFile):
             b = b + 1
             c = 0
 
+    os.system(opsys)
     print("Your generated password is:",pword)
+    time.sleep(1)
+    os.system(opsys)
+    return pword
