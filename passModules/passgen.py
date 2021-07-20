@@ -6,6 +6,7 @@ from math import *
 import random
 import os
 import time
+import passModules.passreader
 
 def passwordgen(displayPass,toFile):
     """
