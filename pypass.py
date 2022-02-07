@@ -5,7 +5,7 @@
 #   development may take longer than normal.
 
 from time import sleep
-from passModules.passgen import passwordgen
+from passModules.passgen import PasswordGen
 import os
 import random
 
@@ -67,4 +67,5 @@ typewrite("-----\nWelcome to PyPass"+splash[i]+"\n-----")
 
 sleep(5)
 
-password = passwordgen(True,False)
+password = PasswordGen(True,False)
+print(password.get_password())
