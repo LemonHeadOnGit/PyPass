@@ -6,40 +6,16 @@ from math import *
 import random
 import os
 import time
-import passModules.passreader
+from enum import Enum
 
-def passwordgen(displayPass,toFile):
-    """
-    This is the module for generating the password.
-    --------
-     - displayPass: Whether the password should be displayed
-                         in real time or not. True for yes.
-     - toFile:      Whether the password should be sent to
-                         a text file or not. True for yes.
-    """
-    # --- GET OS ---
+class Password_Type(Enum):
+            ONLY_NUMBERS = 1
+            ONLY_LETTERS = 2
+            NUMBES_AND_LETTERS = 3
+            RANDOM_CHARS_AND_SYMBOLS = 4
+            USER_SPECIFIED = 5
 
-    if os.name == 'nt':
-        opsys = 'cls'
-    else: opsys = 'clear'
-
-    os.system(opsys)
-
-    # --- USER CHOICE ---
-
-    charcount = int(input("How many characters do you want?\n\nChoice: "))
-    os.system(opsys)
-    passtype = int(input("Type of password?\n[1] Numbers\n[2] Letters\n[3] Numbers and Letters\n[4] Random characters (incl. symbols)\n[5] User specified list\n\nChoice: "))
-    os.system(opsys)
-    a = int(input("How many times do you want the password to be randomized?\n(Nothing less than 1)\n\nChoice: "))
-    b = 0
-    c = 0
-    print("Password will be randomized",a,"times.")
-
-    time.sleep(2)
-
-    # --- START GENERATION ---
-
+class PasswordGen():
     letterseta = "QqWwEeRrTtYyUuIiOoPp"
     lettersetb = "AaSsDdFfGgHhJjKkLl"
     lettersetc = "ZzXxCcVvBbNnMm"
@@ -53,86 +29,115 @@ def passwordgen(displayPass,toFile):
     pword = ""
     pwordchars = ""
 
-    if passtype == 1:
-        while b < charcount:
-            while c < a:
-                numsetchoice = secrand.choice(numset)
-                i = random.randint(0,len(numsetchoice)-1)
-                pwordchars = pwordchars + numsetchoice[i]
-                c = c + 1
-                os.system(opsys)
-                print("-----CHARACTER SET-----\n",pwordchars,"\n-----------------------\nGenerating password:",pword,"\n\nSTATS\n-----\nCurrent letter being generated:",str(b+1),"out of",charcount,"\nCurrent character generation value:",str(c))
-            i = random.randint(0,len(pwordchars)-1)
-            pwordc = pwordchars[i]
-            pword = pword + pwordc
-            pword.replace(" ","")
-            pwordchars = ""
-            b = b + 1
-            c = 0
+    def __init__(self, displayPass, toFile):
 
-    elif passtype == 2:
-        while b < charcount:
-            while c < a:
-                lettersetchoice = secrand.choice(letterset)
-                i = random.randint(0,len(lettersetchoice)-1)
-                pwordchars = pwordchars + lettersetchoice[i]
-                c = c + 1
-                os.system(opsys)
-                print("-----CHARACTER SET-----\n",pwordchars,"\n-----------------------\nGenerating password:",pword,"\n\nSTATS\n-----\nCurrent letter being generated:",str(b+1),"out of",charcount,"\nCurrent character generation value:",str(c))
-            i = random.randint(0,len(pwordchars)-1)
-            pwordc = pwordchars[i]
-            pword = pword + pwordc
-            pword.replace(" ","")
-            pwordchars = ""
-            b = b + 1
-            c = 0
+        self.b = 0
+        self.current_randomization = 0
 
-    elif passtype == 3:
-        timeremain = 0.00
-        while b < charcount:
-            starttime = time.time()
-            while c < a:
-                charsetchoice = secrand.choice(charset)
-                charcharsetchoice = secrand.choice(charsetchoice)
-                i = random.randint(0,len(charcharsetchoice)-1)
-                pwordchars = pwordchars + charcharsetchoice[i]
-                os.system(opsys)
-                c = c + 1
-                print("-----CHARACTER SET-----\n",pwordchars,"\n-----------------------\nGenerating password:",pword,"\n\nSTATS\n-----\nCurrent letter being generated:",str(b+1),"out of",charcount,"\nCurrent character generation value:",str(c),"\nRemaining time: +-",str(float("%.2f"%timeremain)),"seconds.")
-            i = random.randint(0,len(pwordchars)-1)
-            pwordc = pwordchars[i]
-            pword = pword + pwordc
-            pword.replace(" ","")
-            pwordchars = ""
-            b = b + 1
-            c = 0
-            endtime = time.time()
-            timeremain = (endtime - starttime) * (charcount - b)
+        self.clear_screen()
+        user_choice = -1
 
-    elif passtype == 4:
-        symseta = input("Specify the sets of symbols you want in set A: ")
-        symsetb = input("Specify the sets of symbols you want in set B: ")
-        symset = [symseta,symsetb]
-        symsetc = [letterset,numset,symset]
-        while b < charcount:
-            while c < a:
-                symsetchoice = secrand.choice(symsetc)
-                symsymsetchoice = secrand.choice(symsetchoice)
-                i = random.randint(0,len(symsymsetchoice)-1)
-                pwordchars = pwordchars + symsymsetchoice[i]
-                c = c + 1
-                os.system(opsys)
-                print("-----CHARACTER SET-----\n",pwordchars,"\n-----------------------\nGenerating password:",pword,"\n\nSTATS\n-----\nCurrent letter being generated:",str(b+1),"out of",charcount,"\nGenerated characters for letter:",str(c))
-            i = random.randint(0,len(pwordchars)-1)
-            pwordc = pwordchars[i]
-            pword = pword + pwordc
-            pword.replace(" ","")
-            pwordchars = ""
-            b = b + 1
-            c = 0
+        while not self.is_valid_choice(user_choice):
+            user_choice = self.get_users_choice()
+        self.user_choice = Password_Type(user_choice)
 
-    os.system(opsys)
-    print("Your generated password is:",pword)
-    time.sleep(1)
-    os.system(opsys)
-    return pword
+    
+    def clear_screen(self):
+        if os.name == 'nt':
+            opsys = 'cls'
+        else: opsys = 'clear'
+
+        os.system(opsys)
+    
+    def get_users_choice(self):
+        self.charcount = int(input("How many characters do you want?\n\nChoice: "))
+        self.clear_screen()
+        passtype = int(input("Type of password?\n[1] Numbers\n[2] Letters\n[3] Numbers and Letters\n[4] Random characters (incl. symbols)\n[5] User specified list\n\nChoice: "))
+        self.clear_screen()
+        self.total_randomizations = int(input("How many times do you want the password to be randomized?\n(Nothing less than 1)\n\nChoice: "))
+        print("Password will be randomized",self.total_randomizations,"times.")
+        return passtype
+    
+    def is_valid_choice(self,choice):
+        if choice in [1,2,3,4,5]:
+            return True
+        return False
+    
+    def get_password(self):
+        if self.user_choice ==  Password_Type.ONLY_NUMBERS:
+            while self.b < self.charcount:
+                while self.current_randomization < self.total_randomizations:
+                    numsetchoice = self.secrand.choice(self.numset)
+                    i = random.randint(0,len(numsetchoice)-1)
+                    self.pwordchars = self.pwordchars + numsetchoice[i]
+                    self.current_randomization += 1
+                i = random.randint(0,len(self.pwordchars)-1)
+                pwordc = self.pwordchars[i]
+                self.pword = self.pword + pwordc
+                self.pword.replace(" ","")
+                self.pwordchars = ""
+                self.b = self.b + 1
+                self.current_randomization = 0
+        
+        elif self.user_choice == Password_Type.ONLY_LETTERS:
+            while self.b < self.charcount:
+                while self.current_randomization < self.total_randomizations:
+                    lettersetchoice = self.secrand.choice(self.letterset)
+                    i = random.randint(0,len(lettersetchoice)-1)
+                    self.pwordchars = self.pwordchars + lettersetchoice[i]
+                    self.current_randomization += 1
+                i = random.randint(0,len(self.pwordchars)-1)
+                pwordc = self.pwordchars[i]
+                self.pword = self.pword + pwordc
+                self.pword.replace(" ","")
+                self.pwordchars = ""
+                self.b += 1
+                self.current_randomization = 0
+
+        elif self.user_choice == Password_Type.NUMBES_AND_LETTERS:
+            timeremain = 0.00
+            while self.b < self.charcount:
+                starttime = time.time()
+                while self.current_randomization < self.total_randomizations:
+                    charsetchoice = self.secrand.choice(self.charset)
+                    charcharsetchoice = self.secrand.choice(charsetchoice)
+                    i = random.randint(0,len(charcharsetchoice)-1)
+                    self.pwordchars = self.pwordchars + charcharsetchoice[i]
+                    self.current_randomization += 1
+                i = random.randint(0,len(self.pwordchars)-1)
+                pwordc = self.pwordchars[i]
+                self.pword = self.pword + pwordc
+                self.pword.replace(" ","")
+                self.pwordchars = ""
+                self.b = self.b + 1
+                self.current_randomization = 0
+                endtime = time.time()
+                timeremain = (endtime - starttime) * (self.charcount - self.b)
+
+        elif self.user_choice == Password_Type.RANDOM_CHARS_AND_SYMBOLS:
+            symseta = input("Specify the sets of symbols you want in set A: ")
+            symsetb = input("Specify the sets of symbols you want in set B: ")
+            symset = [symseta,symsetb]
+            symsetc = [self.letterset,self.numset,symset]
+            while self.b < self.charcount:
+                while self.current_randomization < self.total_randomizations:
+                    symsetchoice = self.secrand.choice(symsetc)
+                    symsymsetchoice = self.secrand.choice(symsetchoice)
+                    i = random.randint(0,len(symsymsetchoice)-1)
+                    self.pwordchars = self.pwordchars + symsymsetchoice[i]
+                    self.current_randomization += 1
+                    self.clear_screen()
+                    print("-----CHARACTER SET-----\n",self.pwordchars,"\n-----------------------\nGenerating password:",self.pword,"\n\nSTATS\n-----\nCurrent letter being generated:",str(self.b+1),"out of",self.charcount,"\nGenerated characters for letter:",str(self.current_randomization))
+                i = random.randint(0,len(self.pwordchars)-1)
+                pwordc = self.pwordchars[i]
+                self.pword = self.pword + pwordc
+                self.pword.replace(" ","")
+                self.pwordchars = ""
+                self.b = self.b + 1
+                self.current_randomization = 0
+
+        self.clear_screen()
+        print("Your generated password is:",self.pword)
+        time.sleep(1)
+        self.clear_screen()
+        return self.pword
