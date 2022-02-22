@@ -27,3 +27,6 @@ Sure! Any help is appreciated. See the [Contribution Section](https://github.com
 If you want to contribute go ahead!
 
 > NOTE: Most pull requests will need to be thoroughly checked, especially if the code modifies the encryption part of the project.
+
+Test
+This is a test
