@@ -1,72 +1,43 @@
-import random
+r"""
+Password storage module.
+"""
 
-secrand = random.SystemRandom()
-seperator = "-"
+import os
+from pathlib import Path
+from enum import Enum
 
-class Crypto:
-    def __init__(self, message):
-        self.message = message
+class readChoice(Enum):
+    READ_PASSWORDS = 1
+    SAVE_PASSWORDS = 2
+    ENCRYPT_FILE = 3
+    DECRYPT_FILE = 4
 
-    def encrypt(self):
-        """
-        Math encrypt Rules:
-            * 234567898324567
-            - 44
-        """
+class passwordStorage():
+    r"""
+    The class for password storage/reading.
+    """
 
-        message = self.message
-        chars = []
-        for i in range(len(str(message))):
-            char = message[i]
+    homedir = str(Path.home())
+    pFile = homedir + "/.pypass/.psfl"
+    pDir = homedir + "/.pypass"
 
-            chars.append(ord(char))
+    def __init__(self) -> None:
+        self.initPassFile()
 
-        encrypted = ''
+    def initPassFile(self, passFile: pFile, pypassDir: pDir):
+        pass
+        if Path.exists(passFile) == False:
+            with open(passFile) as f:
+                f.write()
+                f.close()
+                os.system("attrib +h" + passFile)
+                os.system("attrib +h" + pypassDir)
 
-        for ordi in chars:
-            encrypted = encrypted + str((ordi * 234567898324567) - 44) + secrand.choice(seperator)
+    def readPass(self, passFile: str):
+        pass
 
-        self.message = encrypted
-        return encrypted
+    def savePass(self, passFile: str):
+        pass
 
-    def decrypt(self):
-        """
-        Remember to use this when you're going to use it.
-        """
-        
-        seperator = "-"
-        decrypted = ''
-
-        message = self.message
-        chunk = []
-       
-
-        posssss = message.find(seperator)
-
-        while posssss != -1:
-            lengthMan = int(len(message))
-            posTwoMan = posssss
-            posThreeMan = posssss + len(seperator)
-
-            chunk.append(message[0:posTwoMan])
-            message = message[posThreeMan:lengthMan]
-
-            posssss = message.find(seperator)
-        
-        
-        for cnk in chunk:
-            decrypted = decrypted + chr(int((int(cnk) + 44) / 234567898324567))
-        return decrypted
-
-manUrinates = Crypto(input("Enter message to encrypt: "))
-
-# Encrypted
-encryptedD = manUrinates.encrypt()
-
-print("Encrypted: \n\n" + encryptedD + "\n")
-
-# Decrypted
-
-decryptedD = manUrinates.decrypt()
-
-print('Decrypted: ' + decryptedD)
+    def encryptDecrypt(self, passFile: str):
+        pass

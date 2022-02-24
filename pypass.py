@@ -67,5 +67,5 @@ typewrite("-----\nWelcome to PyPass"+splash[i]+"\n-----")
 
 sleep(5)
 
-password = PasswordGen(True,False)
+password = PasswordGen()
 print(password.get_password())
