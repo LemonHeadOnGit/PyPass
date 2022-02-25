@@ -12,7 +12,7 @@ class Choice(Enum):
     SAVE_PASSWORD = 1
     GENERATE_PASSWORD = 2
 
-class Options():
+class MainMenu():
     def drawMenu(self):
         inChoice = True
 
@@ -29,15 +29,34 @@ class Options():
                 if int(userin) == 1:
                     print("Opening password file...")
                     inChoice = False
-                    passwordStorage.readPass()
+                    passwordStorage().readPass()
 
                 elif int(userin) == 2:
                     print("Opening password generator...")
                     inChoice = False
-                    return PasswordGen.get_password()
+                    PasswordGen().get_password()
                 
                 else: print("Invalid Choice")
             
             except TypeError:
                 print("Invalid Choice")
-                continue
+
+class SaveMenu():
+    def drawMenu(self):
+        inChoice = True
+
+        if os.name == "nt":
+            opsys = "cls"
+        else: opsys = "clear"
+
+        os.system(opsys)
+
+        while inChoice == True:
+            userin = input("Would you like to save this password?\n[Y] Save\n[N] No thanks")
+
+            if userin[0] == "Y":
+                print("Saving...")
+                passwordStorage().savePass()
+            elif userin[0] == "N":
+                print("Have a day!")
+                

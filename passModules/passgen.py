@@ -28,6 +28,7 @@ class PasswordGen():
     secrand = random.SystemRandom()
     pword = ""
     pwordchars = ""
+    pwordhash = ""
 
     def __init__(self):
 
@@ -64,6 +65,7 @@ class PasswordGen():
         return False
     
     def get_password(self):
+        print("Generating and randomizing...")
         if self.user_choice ==  Password_Type.ONLY_NUMBERS:
             while self.b < self.charcount:
                 while self.current_randomization < self.total_randomizations:
@@ -135,9 +137,19 @@ class PasswordGen():
                 self.pwordchars = ""
                 self.b = self.b + 1
                 self.current_randomization = 0
-
-        self.clear_screen()
-        print("Your generated password is:",self.pword)
+        
+        print("Hashing...")
         time.sleep(1)
+        
+        for i in self.pword:
+            chn = ord(i) + 73
+            self.pwordhash += chr(chn)
+            print(i + " => " + self.pwordhash)
+            time.sleep(.01)
+        
         self.clear_screen()
-        return self.pword
+        print("Your generated password is:",self.pwordhash)
+        
+        time.sleep(2)
+        self.clear_screen()
+        return self.pwordhash
