@@ -14,9 +14,30 @@ Currently, it is as secure as the python `random.SystemRandom` function. I don't
 
 ### Can I contribute to PyPass?
 
-Sure! Any help is appreciated. See the [Contribution Section](https://github.com/LemonHeadOnGit/PyPass/blob/dev/readme.md#contribution) for more information.
+Sure! Any help is appreciated. 
+See the [Contribution Section](https://github.com/LemonHeadOnGit/PyPass/blob/dev/readme.md#contribution) for more information.
 
 ## Installation
+
+PyPass comes with some libraries that make development easier.
+It is recommended to setup a **Virtual Environment or `venv`** before installing these libraries for development.
+
+Once ready, you can simply `cd` into the root project directory, and run:
+
+```bash
+# Install python packages in current directory
+
+pip install .
+```
+
+This will run the `setup.py` file located in the root of the directory.
+If at any point you need to "update" or "upgrade" the modules, you can simply run:
+
+```bash
+# Upgrade the pip modules
+
+pip install --upgrade .
+```
 
 > TODO [#2](https://github.com/LemonHeadOnGit/PyPass/issues/2)
 
@@ -27,6 +48,3 @@ Sure! Any help is appreciated. See the [Contribution Section](https://github.com
 If you want to contribute go ahead!
 
 > NOTE: Most pull requests will need to be thoroughly checked, especially if the code modifies the encryption part of the project.
-
-Test
-This is a test

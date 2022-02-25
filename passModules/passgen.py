@@ -9,11 +9,11 @@ import time
 from enum import Enum
 
 class Password_Type(Enum):
-            ONLY_NUMBERS = 1
-            ONLY_LETTERS = 2
-            NUMBES_AND_LETTERS = 3
-            RANDOM_CHARS_AND_SYMBOLS = 4
-            USER_SPECIFIED = 5
+    ONLY_NUMBERS = 1
+    ONLY_LETTERS = 2
+    NUMBES_AND_LETTERS = 3
+    RANDOM_CHARS_AND_SYMBOLS = 4
+    USER_SPECIFIED = 5
 
 class PasswordGen():
     letterseta = "QqWwEeRrTtYyUuIiOoPp"
@@ -29,7 +29,7 @@ class PasswordGen():
     pword = ""
     pwordchars = ""
 
-    def __init__(self, displayPass, toFile):
+    def __init__(self):
 
         self.b = 0
         self.current_randomization = 0

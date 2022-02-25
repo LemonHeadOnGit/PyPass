@@ -5,6 +5,7 @@ Password storage module.
 import os
 from pathlib import Path
 from enum import Enum
+import subprocess
 
 class readChoice(Enum):
     READ_PASSWORDS = 1
@@ -18,20 +19,24 @@ class passwordStorage():
     """
 
     homedir = str(Path.home())
-    pFile = homedir + "/.pypass/.psfl"
-    pDir = homedir + "/.pypass"
+    pFile = Path(homedir + "/.pypass/.psfl")
+    pDir = Path(homedir + "/.pypass")
 
     def __init__(self) -> None:
-        self.initPassFile()
+        homedir = str(Path.home())
+        pFile = Path(homedir + "/.pypass/.psfl")
+        pDir = Path(homedir + "/.pypass")
+        
+        self.initPassFile(pFile, pDir)
 
-    def initPassFile(self, passFile: pFile, pypassDir: pDir):
-        pass
-        if Path.exists(passFile) == False:
-            with open(passFile) as f:
-                f.write()
+    def initPassFile(self, passFile : Path, pypassDir : Path):
+        if pypassDir.is_dir() == False:
+            pypassDir.mkdir(parents=True, exist_ok=True)
+        if passFile.is_file() == False:
+            with passFile.open('x') as f:
                 f.close()
-                os.system("attrib +h" + passFile)
-                os.system("attrib +h" + pypassDir)
+                subprocess.check_call(["attrib","+h",str(passFile)])
+                subprocess.check_call(["attrib","+h",str(pypassDir)])
 
     def readPass(self, passFile: str):
         pass
