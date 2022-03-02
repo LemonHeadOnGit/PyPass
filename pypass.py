@@ -5,7 +5,7 @@
 #   development may take longer than normal.
 
 from time import sleep
-from passModules.passgen import passwordgen
+from passModules.passOpt import Options
 import os
 import random
 
@@ -53,7 +53,7 @@ splash = [".\nAlso check out PythonPlanner!",
 　　　     COMPLETE""",
     ".\nBe careful you might PyPass away!",
     ", update SF-14.\nIf you know, you know.\nIf you don't know, you don't know.",
-    ".\nif: else:\nif: else:\nif: else:\nif: else:\nif: else:\nif: else:\nif: else:\nif: else:\nif: else:\nif: else:\nif: else:\nif: else:\nif: else:\nif: else:\nif: else:\nif: else:\nif: else:\nif: else:\nif: else:\nif: else:\nif: else:\nif: else:\nif: else:\nif: else:\nif: else:\nif: else:\nif: else:\nif: else:\nif: else:\nif: else:\nif: else:"]
+]
 
 os.system(opsys)
 
@@ -65,6 +65,6 @@ def typewrite(str):
 i = random.randint(0,len(splash)-1)
 typewrite("-----\nWelcome to PyPass"+splash[i]+"\n-----")
 
-sleep(5)
+sleep(2)
 
-password = passwordgen(True,False)
+Options().drawMenu()

@@ -1,5 +1,14 @@
+# Pip stuff
+*.egg-info
+build/
+
+# Python cached files
+*.pyc
 __pycache__/
+
+# Git and IDE things
 .vscode/
 .github/
-*.txt
-*.pyc
+
+# Other
+venv/
